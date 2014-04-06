@@ -6,7 +6,7 @@ PRAGMA FOREIGN_KEYS = ON;
 
 DROP TABLE if exists JogoTipo;
 DROP TABLE if exists JogoGenero;
-DROP TABLE if exists JogoFranchise;
+DROP TABLE if exists FranchiseDistribuidor;
 DROP TABLE if exists JogoDistribuidor;
 DROP TABLE if exists JogoModulo;
 DROP TABLE if exists FuncionarioEquipa;
@@ -57,7 +57,7 @@ create TABLE Funcionario(
 	Nome TEXT, 
 	dataNasc TEXT, 
 	departamento INTEGER, 
-	FOREIGN KEY (departamento) REFERENCES Departamento(nome)
+	FOREIGN KEY (departamento) REFERENCES Departamento(departamentoID)
 	);
 INSERT INTO Funcionario VALUES(1, 'Joao Santos', '15 de Marco de 1980', 1);
 INSERT INTO Funcionario VALUES(2,'John Carmack', '20 de Agosto de 1970', 2);
@@ -65,7 +65,7 @@ INSERT INTO Funcionario VALUES(3,'Steve McConnor', '7 de Novembro de 1983', 3);
 SELECT *FROM Funcionario;
 
 create TABLE FuncionarioEquipa( 
-	equipa INTEGER REFERENCES Equipa(equipa), 
+	equipa INTEGER REFERENCES Equipa(equipaID), 
 	funcionario INTEGER REFERENCES Funcionario(idFuncionario),
 	projectLead BOOLEAN, 
 	PRIMARY KEY (equipa, funcionario)
@@ -77,7 +77,7 @@ SELECT *FROM FuncionarioEquipa;
 
 
 create TABLE DepartamentoFuncionario( 
-	departamento INTEGER REFERENCES Departamento(departamento), 
+	departamento INTEGER REFERENCES Departamento(departamentoID), 
 	funcionario INTEGER REFERENCES Funcionario(idFuncionario),
 	leader BOOLEAN , 
 	PRIMARY KEY (funcionario,departamento)
@@ -92,7 +92,7 @@ create TABLE Modulo(
 	moduloID INTEGER PRIMARY KEY  ,
 	nome TEXT,
 	departamento INTEGER, 
-	FOREIGN KEY (departamento) REFERENCES Departamento(nome)
+	FOREIGN KEY (departamento) REFERENCES Departamento(departamentoID)
 	);
 INSERT INTO Modulo VALUES(1,'Fisica', 1);
 INSERT INTO Modulo VALUES(2,'Motor Grafico', 2);
@@ -120,9 +120,10 @@ create TABLE Franchise(
 	franchiseID INTEGER PRIMARY KEY  ,
 	tipoFranchise TEXT,
 	jogo INTEGER , 
-	FOREIGN KEY (jogo) REFERENCES Jogo(titulo)  
+	FOREIGN KEY (jogo) REFERENCES Jogo(jogoID)  
 	);
-INSERT INTO Franchise VALUES(1,'Wallpaper', 2);
+	INSERT INTO Franchise VALUES(1,'Wallpaper', 2);
+	INSERT INTO Franchise VALUES(2,'Wallpaper', 1);
 SELECT *FROM Franchise;
 
 
@@ -131,20 +132,19 @@ create TABLE Distribuidor(
 	nome TEXT 
 	);
 INSERT INTO Distribuidor VALUES(1,'Cega');
+INSERT INTO Distribuidor VALUES(2,'AEGames');
 SELECT *FROM Distribuidor;
 
 
 create TABLE JogoModulo( 
 	jogoID INTEGER REFERENCES Jogo(jogoID),
-	moduloID INTEGER REFERENCES moduloID(nome),
+	moduloID INTEGER REFERENCES Modulo(moduloID),
 	PRIMARY KEY (jogoID,moduloID)
 	);
 INSERT INTO JogoModulo VALUES(1, 1);
 INSERT INTO JogoModulo VALUES(1, 2);
-INSERT INTO JogoModulo VALUES(1, 3);
 INSERT INTO JogoModulo VALUES(2, 1);
 INSERT INTO JogoModulo VALUES(2, 2);
-INSERT INTO JogoModulo VALUES(2, 3);
 SELECT *FROM JogoModulo;
 
 
@@ -156,19 +156,20 @@ create TABLE JogoDistribuidor(
 	PRIMARY KEY (jogoID,distribuidorID)	
 	);
 INSERT INTO JogoDistribuidor VALUES(1, 1);
+INSERT INTO JogoDistribuidor VALUES(1, 2);
 INSERT INTO JogoDistribuidor VALUES(2, 1);
 SELECT *FROM JogoDistribuidor;
 
 
-create TABLE JogoFranchise( 
+create TABLE FranchiseDistribuidor( 
 	jogoID INTEGER REFERENCES Jogo(jogoID),
-	tipoFranchise INTEGER REFERENCES Franchise(tipoFranchise),
-	PRIMARY KEY (jogoID,tipoFranchise)	
+	distribuidorID INTEGER REFERENCES Distribuidor(distribuidorID),
+	PRIMARY KEY (jogoID,distribuidorID)	
 	);
-INSERT INTO JogoFranchise VALUES(1, 1 );
-INSERT INTO JogoGenero VALUES(1, 2 );
-INSERT INTO JogoGenero VALUES(2, 2 );
-SELECT *FROM JogoFranchise;
+INSERT INTO FranchiseDistribuidor VALUES(1, 1 );
+INSERT INTO FranchiseDistribuidor VALUES(1, 2 );
+INSERT INTO FranchiseDistribuidor VALUES(2, 2 );
+SELECT *FROM FranchiseDistribuidor;
 
 create TABLE JogoGenero( 
 	jogoID INTEGER REFERENCES Jogo(jogoID),
