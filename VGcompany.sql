@@ -53,7 +53,7 @@ SELECT *FROM Departamento;
 
 
 create TABLE Funcionario(
-	idFuncionario INTEGER PRIMARY KEY  ,
+	funcionarioID INTEGER PRIMARY KEY  ,
 	Nome TEXT, 
 	dataNasc TEXT, 
 	departamento INTEGER, 
@@ -66,7 +66,7 @@ SELECT *FROM Funcionario;
 
 create TABLE FuncionarioEquipa( 
 	equipa INTEGER REFERENCES Equipa(equipaID), 
-	funcionario INTEGER REFERENCES Funcionario(idFuncionario),
+	funcionario INTEGER REFERENCES Funcionario(funcionarioID),
 	projectLead BOOLEAN, 
 	PRIMARY KEY (equipa, funcionario)
 	);
@@ -78,7 +78,7 @@ SELECT *FROM FuncionarioEquipa;
 
 create TABLE DepartamentoFuncionario( 
 	departamento INTEGER REFERENCES Departamento(departamentoID), 
-	funcionario INTEGER REFERENCES Funcionario(idFuncionario),
+	funcionario INTEGER REFERENCES Funcionario(funcionarioID),
 	leader BOOLEAN , 
 	PRIMARY KEY (funcionario,departamento)
 	);
