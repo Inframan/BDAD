@@ -1,179 +1,188 @@
 . mode columns
 . headers on
 . nullvalue NULL
-PRAGMA FOREIGN_KEY = ON;
+PRAGMA FOREIGN_KEYS = ON;
 
 
-drop table if exists JogoTipo;
-drop table if exists JogoGenero;
-drop table if exists JogoFranchise;
-drop table if exists JogoDistribuidor;
-drop table if exists JogoModulo;
-drop table if exists FuncionarioEquipa;
-drop table if exists DepartamentoFuncionario;
-drop table if exists Distribuidor;
-drop table if exists Franchise;
-drop table if exists Tipo;
-drop table if exists Genero;
-drop table if exists Modulo;
-drop table if exists Funcionario;
-drop table if exists Equipa;
-drop table if exists Departamento;
-drop table if exists Jogo;
+DROP TABLE if exists JogoTipo;
+DROP TABLE if exists JogoGenero;
+DROP TABLE if exists JogoFranchise;
+DROP TABLE if exists JogoDistribuidor;
+DROP TABLE if exists JogoModulo;
+DROP TABLE if exists FuncionarioEquipa;
+DROP TABLE if exists DepartamentoFuncionario;
+DROP TABLE if exists Distribuidor;
+DROP TABLE if exists Franchise;
+DROP TABLE if exists Tipo;
+DROP TABLE if exists Genero;
+DROP TABLE if exists Modulo;
+DROP TABLE if exists Funcionario;
+DROP TABLE if exists Equipa;
+DROP TABLE if exists Departamento;
+DROP TABLE if exists Jogo;
 
-create table Jogo(
+create TABLE Jogo(
 	jogoID INTEGER PRIMARY KEY  ,
-	titulo text,
-	INTEGER idadeMin
+	titulo TEXT,
+	idadeMin INTEGER 
 	);
-insert into Jogo values(1,'Minecraft', 6);
-insert into Jogo values(2,'CoH: MW', 16);
-Select *from Jogo;
+INSERT INTO Jogo VALUES(1,'Minecraft', 6);
+INSERT INTO Jogo VALUES(2,'CoH: MW', 16);
+SELECT *FROM Jogo;
 
-create table Equipa(
+create TABLE Equipa(
 	equipaID INTEGER PRIMARY KEY  ,
-	Nome text , 
+	Nome TEXT , 
 	jogo INTEGER, 
-	FOREIGN KEY (jogo) references Jogo(jogoID)
+	FOREIGN KEY (jogo) REFERENCES Jogo(jogoID)
 	);
-insert into Equipa values(1,'Team17', 1);
-insert into Equipa values(2,'734W', 2);	
-Select *from Equipa;
+INSERT INTO Equipa VALUES(1,'Team17', 1);
+INSERT INTO Equipa VALUES(2,'734W', 2);	
+SELECT *FROM Equipa;
 
 
-create table Departamento(
+create TABLE Departamento(
 	departamentoID INTEGER PRIMARY KEY  ,
-	nome text 
+	nome TEXT 
 	);
-insert into Departamento values(1,'Logica');
-insert into Departamento values(2,'Grafico');
-insert into Departamento values(3,'Som');
-Select *from Departamento;
+INSERT INTO Departamento VALUES(1,'Logica');
+INSERT INTO Departamento VALUES(2,'Grafico');
+INSERT INTO Departamento VALUES(3,'Som');
+SELECT *FROM Departamento;
 
 
 
-create table Funcionario(
+create TABLE Funcionario(
 	idFuncionario INTEGER PRIMARY KEY  ,
-	Nome text, 
-	dataNasc text, 
+	Nome TEXT, 
+	dataNasc TEXT, 
 	departamento INTEGER, 
-	FOREIGN KEY (departamento) references Departamento(nome)
+	FOREIGN KEY (departamento) REFERENCES Departamento(nome)
 	);
-insert into Funcionario values(1, 'Joao Santos', '15 de Marco de 1980', 1);
-insert into Funcionario values(2,'John Carmack', '20 de Agosto de 1970', 2);
-insert into Funcionario values(3,'Steve McConnor', '7 de Novembro de 1983', 3);
-Select *from Funcionario;
+INSERT INTO Funcionario VALUES(1, 'Joao Santos', '15 de Marco de 1980', 1);
+INSERT INTO Funcionario VALUES(2,'John Carmack', '20 de Agosto de 1970', 2);
+INSERT INTO Funcionario VALUES(3,'Steve McConnor', '7 de Novembro de 1983', 3);
+SELECT *FROM Funcionario;
 
-create table FuncionarioEquipa( 
-	equipa INTEGER references Equipa(equipa), 
-	funcionario INTEGER references Funcionario(idFuncionario),
-	projectLead boolean, 
+create TABLE FuncionarioEquipa( 
+	equipa INTEGER REFERENCES Equipa(equipa), 
+	funcionario INTEGER REFERENCES Funcionario(idFuncionario),
+	projectLead BOOLEAN, 
 	PRIMARY KEY (equipa, funcionario)
 	);
-insert into FuncionarioEquipa values(1, 1 , 0);
-insert into FuncionarioEquipa values(1, 2 , 1);
-insert into FuncionarioEquipa values(1, 3 , 0);
-Select *from FuncionarioEquipa;
+INSERT INTO FuncionarioEquipa VALUES(1, 1 , 0);
+INSERT INTO FuncionarioEquipa VALUES(1, 2 , 1);
+INSERT INTO FuncionarioEquipa VALUES(2, 3 , 0);
+SELECT *FROM FuncionarioEquipa;
 
 
-create table DepartamentoFuncionario( 
-	departamento INTEGER references Departamento(departamento), 
-	funcionario INTEGER references Funcionario(idFuncionario),
-	leader boolean , 
+create TABLE DepartamentoFuncionario( 
+	departamento INTEGER REFERENCES Departamento(departamento), 
+	funcionario INTEGER REFERENCES Funcionario(idFuncionario),
+	leader BOOLEAN , 
 	PRIMARY KEY (funcionario,departamento)
 	);
-insert into DepartamentoFuncionario values(1, 2, 1);
-Select *from DepartamentoFuncionario;
+INSERT INTO DepartamentoFuncionario VALUES(1, 2, 1);
+SELECT *FROM DepartamentoFuncionario;
 
 
 
 
-create table Modulo(
+create TABLE Modulo(
 	moduloID INTEGER PRIMARY KEY  ,
-	nome text,
+	nome TEXT,
 	departamento INTEGER, 
-	FOREIGN KEY (departamento) references Departamento(nome)
+	FOREIGN KEY (departamento) REFERENCES Departamento(nome)
 	);
-insert into Modulo values(1,'Fisica', 1);
-insert into Modulo values(2,'Motor Grafico', 2);
-Select *from Modulo;
+INSERT INTO Modulo VALUES(1,'Fisica', 1);
+INSERT INTO Modulo VALUES(2,'Motor Grafico', 2);
+SELECT *FROM Modulo;
 
 
-create table Genero( 
+create TABLE Genero( 
 	generoID INTEGER PRIMARY KEY  ,
-	nome text
+	nome TEXT
 	);	
-insert into Genero values(1,'FPS');
-insert into Genero values(2,'RPG');
-Select *from Genero;
+INSERT INTO Genero VALUES(1,'FPS');
+INSERT INTO Genero VALUES(2,'RPG');
+SELECT *FROM Genero;
 
-create table Tipo( 
+create TABLE Tipo( 
 	tipoID INTEGER PRIMARY KEY  ,
-	nome  text
+	nome  TEXT
 	);	
-insert into Tipo values(1,'Accao');
-insert into Tipo values(2,'Aventura');
-Select *from Tipo;
+INSERT INTO Tipo VALUES(1,'Accao');
+INSERT INTO Tipo VALUES(2,'Aventura');
+SELECT *FROM Tipo;
 
 
-create table Franchise( 
+create TABLE Franchise( 
 	franchiseID INTEGER PRIMARY KEY  ,
-	tipoFranchise text,
+	tipoFranchise TEXT,
 	jogo INTEGER , 
-	FOREIGN KEY (jogo) references Jogo(titulo)  
+	FOREIGN KEY (jogo) REFERENCES Jogo(titulo)  
 	);
-insert into Franchise values(1,'Wallpaper', 2);
-Select *from Franchise;
+INSERT INTO Franchise VALUES(1,'Wallpaper', 2);
+SELECT *FROM Franchise;
 
 
-create table Distribuidor( 
+create TABLE Distribuidor( 
 	distribuidorID INTEGER PRIMARY KEY  ,
-	nome text 
+	nome TEXT 
 	);
-insert into Distribuidor values(2,'Cega');
-Select *from Distribuidor;
+INSERT INTO Distribuidor VALUES(1,'Cega');
+SELECT *FROM Distribuidor;
 
 
-create table JogoModulo( 
-	titulo INTEGER references Jogo(titulo),
-	nome INTEGER references Modulo(nome),
-	PRIMARY KEY (titulo,nome)
+create TABLE JogoModulo( 
+	jogoID INTEGER REFERENCES Jogo(jogoID),
+	moduloID INTEGER REFERENCES moduloID(nome),
+	PRIMARY KEY (jogoID,moduloID)
 	);
-insert into JogoModulo values(2, 1);
-Select *from JogoModulo;
+INSERT INTO JogoModulo VALUES(1, 1);
+INSERT INTO JogoModulo VALUES(1, 2);
+INSERT INTO JogoModulo VALUES(1, 3);
+INSERT INTO JogoModulo VALUES(2, 1);
+INSERT INTO JogoModulo VALUES(2, 2);
+INSERT INTO JogoModulo VALUES(2, 3);
+SELECT *FROM JogoModulo;
 
 
 
 
-create table JogoDistribuidor( 
-	titulo INTEGER references Jogo(titulo),
-	nome INTEGER references Distribuidor(nome),
-	PRIMARY KEY (titulo,nome)	
+create TABLE JogoDistribuidor( 
+	jogoID INTEGER REFERENCES Jogo(jogoID),
+	distribuidorID INTEGER REFERENCES Distribuidor(distribuidorID),
+	PRIMARY KEY (jogoID,distribuidorID)	
 	);
-insert into JogoDistribuidor values(2, 1);
-Select *from JogoDistribuidor;
+INSERT INTO JogoDistribuidor VALUES(1, 1);
+INSERT INTO JogoDistribuidor VALUES(2, 1);
+SELECT *FROM JogoDistribuidor;
 
 
-create table JogoFranchise( 
-	titulo INTEGER references Jogo(titulo),
-	tipoFranchise INTEGER references Franchise(tipoFranchise),
-	PRIMARY KEY (titulo,tipoFranchise)	
+create TABLE JogoFranchise( 
+	jogoID INTEGER REFERENCES Jogo(jogoID),
+	tipoFranchise INTEGER REFERENCES Franchise(tipoFranchise),
+	PRIMARY KEY (jogoID,tipoFranchise)	
 	);
-insert into JogoFranchise values(1, 1 );
-Select *from JogoFranchise;
+INSERT INTO JogoFranchise VALUES(1, 1 );
+INSERT INTO JogoGenero VALUES(1, 2 );
+INSERT INTO JogoGenero VALUES(2, 2 );
+SELECT *FROM JogoFranchise;
 
-create table JogoGenero( 
-	titulo INTEGER references Jogo(titulo),
-	nome INTEGER references Genero(nome),
-	PRIMARY KEY (titulo,nome)	
+create TABLE JogoGenero( 
+	jogoID INTEGER REFERENCES Jogo(jogoID),
+	generoID INTEGER REFERENCES Genero(generoID),
+	PRIMARY KEY (jogoID,generoID)	
 	);
-insert into JogoGenero values(1, 2 );
-Select *from JogoGenero;
+INSERT INTO JogoGenero VALUES(1, 2 );
+INSERT INTO JogoGenero VALUES(2, 1);
+SELECT *FROM JogoGenero;
 
-create table JogoTipo( 
-	titulo INTEGER references Jogo(titulo),
-	nome INTEGER references Tipo(nome),
-	PRIMARY KEY (titulo,nome)	
+create TABLE JogoTipo( 
+	jogoID INTEGER REFERENCES Jogo(jogoID),
+	tipoID INTEGER REFERENCES Tipo(tipoID),
+	PRIMARY KEY (jogoID,tipoID)	
 	);
-insert into JogoTipo values(2, 1);
-Select *from JogoTipo;
+INSERT INTO JogoTipo VALUES(2, 1);
+SELECT *FROM JogoTipo;
