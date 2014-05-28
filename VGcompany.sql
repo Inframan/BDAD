@@ -21,47 +21,50 @@ DROP TABLE if exists Equipa;
 DROP TABLE if exists Departamento;
 DROP TABLE if exists Jogo;
 
-create TABLE Jogo(
-	jogoID INTEGER PRIMARY KEY  ,
-	titulo TEXT,
-	idadeMin INTEGER 
-	);
-INSERT INTO Jogo VALUES(1,'Minecraft', 6);
-INSERT INTO Jogo VALUES(2,'CoH: MW', 16);
-SELECT *FROM Jogo;
+
+
 
 create TABLE Equipa(
-	equipaID INTEGER PRIMARY KEY  ,
-	Nome TEXT , 
-	jogo INTEGER, 
-	FOREIGN KEY (jogo) REFERENCES Jogo(jogoID)
+	equipaID INTEGER PRIMARY KEY AUTOINCREMENT ,
+	Nome TEXT
 	);
-INSERT INTO Equipa VALUES(1,'Team17', 1);
-INSERT INTO Equipa VALUES(2,'734W', 2);	
+INSERT INTO Equipa VALUES('Team17');
+INSERT INTO Equipa VALUES('734W');	
 SELECT *FROM Equipa;
+
+create TABLE Jogo(
+	jogoID INTEGER  PRIMARY KEY AUTOINCREMENT,
+	titulo TEXT,
+	idadeMin INTEGER ,
+	equipa INTEGER, 
+	FOREIGN KEY (equipa) REFERENCES Equipa(equipaID)
+	);
+INSERT INTO Jogo VALUES('Minecraft', 6, 1);
+INSERT INTO Jogo VALUES('CoH: MW', 16, 2);
+SELECT *FROM Jogo;
 
 
 create TABLE Departamento(
-	departamentoID INTEGER PRIMARY KEY  ,
+	departamentoID INTEGER PRIMARY KEY AUTOINCREMENT,
 	nome TEXT 
 	);
-INSERT INTO Departamento VALUES(1,'Logica');
-INSERT INTO Departamento VALUES(2,'Grafico');
-INSERT INTO Departamento VALUES(3,'Som');
+INSERT INTO Departamento VALUES('Logica');
+INSERT INTO Departamento VALUES('Grafico');
+INSERT INTO Departamento VALUES('Som');
 SELECT *FROM Departamento;
 
 
 
 create TABLE Funcionario(
-	funcionarioID INTEGER PRIMARY KEY  ,
+	funcionarioID INTEGER PRIMARY KEY  AUTOINCREMENT,
 	Nome TEXT, 
 	dataNasc TEXT, 
 	departamento INTEGER, 
 	FOREIGN KEY (departamento) REFERENCES Departamento(departamentoID)
 	);
-INSERT INTO Funcionario VALUES(1, 'Joao Santos', '15 de Marco de 1980', 1);
-INSERT INTO Funcionario VALUES(2,'John Carmack', '20 de Agosto de 1970', 2);
-INSERT INTO Funcionario VALUES(3,'Steve McConnor', '7 de Novembro de 1983', 3);
+INSERT INTO Funcionario VALUES('Joao Santos', '15 de Marco de 1980', 1);
+INSERT INTO Funcionario VALUES('John Carmack', '20 de Agosto de 1970', 2);
+INSERT INTO Funcionario VALUES('Steve McConnor', '7 de Novembro de 1983', 3);
 SELECT *FROM Funcionario;
 
 create TABLE FuncionarioEquipa( 
@@ -89,50 +92,50 @@ SELECT *FROM DepartamentoFuncionario;
 
 
 create TABLE Modulo(
-	moduloID INTEGER PRIMARY KEY  ,
+	moduloID INTEGER PRIMARY KEY  AUTOINCREMENT,
 	nome TEXT,
 	departamento INTEGER, 
 	FOREIGN KEY (departamento) REFERENCES Departamento(departamentoID)
 	);
-INSERT INTO Modulo VALUES(1,'Fisica', 1);
-INSERT INTO Modulo VALUES(2,'Motor Grafico', 2);
+INSERT INTO Modulo VALUES('Fisica', 1);
+INSERT INTO Modulo VALUES('Motor Grafico', 2);
 SELECT *FROM Modulo;
 
 
 create TABLE Genero( 
-	generoID INTEGER PRIMARY KEY  ,
+	generoID INTEGER PRIMARY KEY AUTOINCREMENT ,
 	nome TEXT
 	);	
-INSERT INTO Genero VALUES(1,'FPS');
-INSERT INTO Genero VALUES(2,'RPG');
+INSERT INTO Genero VALUES('FPS');
+INSERT INTO Genero VALUES('RPG');
 SELECT *FROM Genero;
 
 create TABLE Tipo( 
-	tipoID INTEGER PRIMARY KEY  ,
+	tipoID INTEGER PRIMARY KEY AUTOINCREMENT ,
 	nome  TEXT
 	);	
-INSERT INTO Tipo VALUES(1,'Accao');
-INSERT INTO Tipo VALUES(2,'Aventura');
+INSERT INTO Tipo VALUES('Accao');
+INSERT INTO Tipo VALUES('Aventura');
 SELECT *FROM Tipo;
 
 
 create TABLE Franchise( 
-	franchiseID INTEGER PRIMARY KEY  ,
+	franchiseID INTEGER PRIMARY KEY  AUTOINCREMENT,
 	tipoFranchise TEXT,
 	jogo INTEGER , 
 	FOREIGN KEY (jogo) REFERENCES Jogo(jogoID)  
 	);
-	INSERT INTO Franchise VALUES(1,'Wallpaper', 2);
-	INSERT INTO Franchise VALUES(2,'Wallpaper', 1);
+	INSERT INTO Franchise VALUES('Wallpaper', 2);
+	INSERT INTO Franchise VALUES('Wallpaper', 1);
 SELECT *FROM Franchise;
 
 
 create TABLE Distribuidor( 
-	distribuidorID INTEGER PRIMARY KEY  ,
+	distribuidorID INTEGER PRIMARY KEY AUTOINCREMENT ,
 	nome TEXT 
 	);
-INSERT INTO Distribuidor VALUES(1,'Cega');
-INSERT INTO Distribuidor VALUES(2,'AEGames');
+INSERT INTO Distribuidor VALUES('Cega');
+INSERT INTO Distribuidor VALUES('AEGames');
 SELECT *FROM Distribuidor;
 
 
