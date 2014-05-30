@@ -75,9 +75,10 @@ create TABLE FuncionarioEquipa(
 	projectLead BOOLEAN, 
 	PRIMARY KEY (equipa, funcionario)
 	);
-INSERT INTO FuncionarioEquipa VALUES(1, 1 , 0);
-INSERT INTO FuncionarioEquipa VALUES(1, 2 , 1);
-INSERT INTO FuncionarioEquipa VALUES(2, 3 , 0);
+INSERT INTO FuncionarioEquipa VALUES(1, 1, 0);
+INSERT INTO FuncionarioEquipa VALUES(1, 2, 1);
+INSERT INTO FuncionarioEquipa VALUES(2, 2, 0);
+INSERT INTO FuncionarioEquipa VALUES(2, 3, 0);
 SELECT *FROM FuncionarioEquipa;
 
 
