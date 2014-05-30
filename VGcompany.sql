@@ -37,8 +37,7 @@ create TABLE Jogo(
 	titulo TEXT,
 	rating REAL,
 	idadeMin INTEGER ,
-	equipa INTEGER, 
-	FOREIGN KEY (equipa) REFERENCES Equipa(equipaID)
+	equipa INTEGER  REFERENCES Equipa(equipaID)  ON DELETE SET NULL
 	);
 INSERT INTO Jogo VALUES(NULL,'Minecraft',7.1, 6, 1);
 INSERT INTO Jogo VALUES(NULL,'CoH: MW', 6.9,16, 2);
@@ -62,7 +61,7 @@ create TABLE Funcionario(
 	Nome TEXT, 
 	dataNasc TEXT, 
 	departamento INTEGER, 
-	FOREIGN KEY (departamento) REFERENCES Departamento(departamentoID)
+	FOREIGN KEY (departamento) REFERENCES Departamento(departamentoID) ON DELETE CASCADE
 	);
 INSERT INTO Funcionario VALUES(NULL,'Joao Santos', '15 de Marco de 1980', 1);
 INSERT INTO Funcionario VALUES(NULL,'John Carmack', '20 de Agosto de 1970', 2);
@@ -167,7 +166,7 @@ SELECT *FROM JogoDistribuidor;
 
 
 create TABLE FranchiseDistribuidor( 
-	jogoID INTEGER REFERENCES Jogo(jogoID),
+	franchiseID INTEGER REFERENCES Franchise(franchiseID),
 	distribuidorID INTEGER REFERENCES Distribuidor(distribuidorID),
 	PRIMARY KEY (jogoID,distribuidorID)	
 	);
