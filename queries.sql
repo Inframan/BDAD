@@ -10,6 +10,5 @@ WHERE funcionarioID = (
 	WHERE(projectLead = 1)
 	);
 
-SELECT COUNT(*) FROM Funcionario --Conta o numero de equipas em que cada funcionario trabalha
-WHERE departamento IS NOT NULL
-GROUP BY Nome;
+SELECT *, COUNT(*) FROM FuncionarioEquipa --Conta as equipas em que um funcionario trabalha
+GROUP BY funcionario;

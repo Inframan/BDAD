@@ -1,7 +1,7 @@
 + Obter todos os funcionarios
 - Obter o jogo de maior rating de cada distribuidor
 + Obter o lider das equipas
-- Obter o numero de equipas em que um funcionario trabalha
++ Obter o numero de equipas em que um funcionario trabalha
 - Obter o numero de jogos em que um modulo é utilizado
 - Obter a media funcionarios por equipa
 + Obter numero de jogos cuja idade minima é menor que 18
