@@ -168,7 +168,7 @@ SELECT *FROM JogoDistribuidor;
 create TABLE FranchiseDistribuidor( 
 	franchiseID INTEGER REFERENCES Franchise(franchiseID),
 	distribuidorID INTEGER REFERENCES Distribuidor(distribuidorID),
-	PRIMARY KEY (jogoID,distribuidorID)	
+	PRIMARY KEY (franchiseID,distribuidorID)	
 	);
 INSERT INTO FranchiseDistribuidor VALUES(1, 1 );
 INSERT INTO FranchiseDistribuidor VALUES(1, 2 );
