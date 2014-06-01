@@ -2,6 +2,7 @@ DROP TRIGGER if exists apagaDerivadosDoDepartamento;
 DROP TRIGGER if exists apagaDerivadosDaEquipa;
 DROP TRIGGER if exists apagaDerivadosDoFuncionario;
 DROP TRIGGER if exists apagaDerivadosDoJogo;
+DROP TRIGGER if exists apagaDerivadosDoModulo;
 
 
 CREATE TRIGGER apagaDerivadosDoDepartamento
@@ -17,15 +18,6 @@ CREATE TRIGGER apagaDerivadosDoDepartamento
       DELETE FROM FuncionarioEquipa WHERE(FuncionarioEquipa.equipa = OLD.equipaID);
       UPDATE Jogo SET equipa = NULL WHERE(Jogo.equipa = OLD.equipaID);
    --   UPDATE Jogo SET equipa = NULL WHERE (Jogo.equipa = OLD.equipaID);
- END;
-
-
- CREATE TRIGGER apagaDerivadosDoFuncionario
- BEFORE DELETE ON Funcionario
- FOR EACH ROW BEGIN
-      DELETE FROM FuncionarioEquipa WHERE(FuncionarioEquipa.funcionario = OLD.funcionarioID);
-      DELETE FROM DepartamentoFuncionario WHERE (DepartamentoFuncionario.departamento = OLD.departamento);
-      --caso a equipa fique com menos de que 2 funcionários
  END;
 
 
@@ -47,5 +39,13 @@ CREATE TRIGGER apagaDerivadosDoJogo
       DELETE FROM JogoDistribuidor WHERE(JogoDistribuidor.jogoID = OLD.jogoID);
       DELETE FROM JogoModulo WHERE(JogoModulo.jogoID = OLD.jogoID);
       DELETE FROM Franchise WHERE(Franchise.jogo = OLD.jogoID);
-    
  END;
+
+
+ CREATE TRIGGER apagaDerivadosDoModulo
+ BEFORE DELETE ON Modulo
+ FOR EACH ROW BEGIN
+       DELETE FROM JogoModulo WHERE(JogoModulo.moduloID = OLD.moduloID);
+ END;
+
+
