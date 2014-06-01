@@ -34,3 +34,17 @@ WHERE equipa NOT IN (
 	SELECT equipaID FROM equipa
 	WHERE Nome LIKE '%7%'
 );
+
+SELECT * FROM Jogo, JogoGenero --Obtem todos os jogos RPG cuja idade minima seja de 18 anos
+WHERE generoID = (
+	SELECT generoID FROM Genero
+	WHERE nome = 'RPG')
+AND idadeMin >= 18;
+
+SELECT Nome, dataNasc --Obtem nome e data de nascimento de todo o funcionario que pertenca a uma equipa e a um departamento, que nao seja lider nem líder de projecto 
+FROM Funcionario, FuncionarioEquipa, DepartamentoFuncionario
+WHERE FuncionarioEquipa.funcionario = funcionarioID
+AND DepartamentoFuncionario.departamento NOT NULL
+AND equipa NOT NULL
+AND projectLead = 0
+AND leader = 0;
