@@ -24,3 +24,11 @@ WHERE jogoID = (
 
 SELECT * FROM Jogo --Obtem todos os jogos com rating maior que 8
 WHERE rating >= 8.0;
+
+SELECT AVG(rating) FROM Jogo; --Obtem o rating medio de todos jogos
+
+SELECT * from Jogo --Obtem todos os jogos que tenham sido feitos por uma equipa que nao tenha o numero 7 no nome
+WHERE equipa NOT IN (
+	SELECT equipaID from equipa
+	WHERE Nome NOT LIKE '%7%'
+)
