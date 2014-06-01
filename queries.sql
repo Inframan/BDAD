@@ -10,10 +10,12 @@ WHERE funcionarioID = (
 	WHERE(projectLead = 1)
 	);
 
-SELECT *, COUNT(*) FROM FuncionarioEquipa --Conta as equipas em que um funcionario trabalha
+SELECT *, COUNT(*) --Conta as equipas em que um funcionario trabalha
+FROM FuncionarioEquipa
 GROUP BY funcionario;
 
-SELECT *, COUNT(*) FROM JogoModulo --Conta os jogos em que um modelo é utilizado
+SELECT *, COUNT(*) --Conta os jogos em que um modelo é utilizado
+FROM JogoModulo
 GROUP BY moduloID;
 
 SELECT * from Jogo
@@ -29,6 +31,6 @@ SELECT AVG(rating) FROM Jogo; --Obtem o rating medio de todos jogos
 
 SELECT * from Jogo --Obtem todos os jogos que tenham sido feitos por uma equipa que nao tenha o numero 7 no nome
 WHERE equipa NOT IN (
-	SELECT equipaID from equipa
-	WHERE Nome NOT LIKE '%7%'
-)
+	SELECT equipaID FROM equipa
+	WHERE Nome LIKE '%7%'
+);
