@@ -13,5 +13,8 @@ WHERE funcionarioID = (
 SELECT *, COUNT(*) FROM FuncionarioEquipa --Conta as equipas em que um funcionario trabalha
 GROUP BY funcionario;
 
-SELECt *, COUNT(*) FROM JogoModulo --Conta os jogos em que um modelo é utilizado
+SELECT *, COUNT(*) FROM JogoModulo --Conta os jogos em que um modelo é utilizado
 GROUP BY moduloID;
+
+SELECT jogo FROM JogoGenero --Obtem todos os jogos cujo genero seja FPS
+WHERE generoID = 1;
